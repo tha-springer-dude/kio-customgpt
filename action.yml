@@ -1,0 +1,76 @@
+# This defines which OpenAPI version is used, so tools know how to read and interpret this API file correctly
+openapi: 3.1.0
+
+# Basic API metadata
+info:
+  title: KIO n8n API
+  description: Combined API for publishing posts and fetching images
+  version: "1.0"
+
+# Server where the API is hosted
+servers:
+  - url: https://n8n.ki-o.eu
+
+# All available endpoints
+paths:
+  # GET endpoint to fetch images
+  /webhook/0f24622b-a03a-4ec9-9503-205b608304d9:
+    get:
+      operationId: getImages # Unique identifier
+      summary: Fetch images from WordPress
+
+      # Query parameters
+      parameters:
+        # search=keyword
+        - name: search          
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        "200":
+          # Response definitions
+          description: Successful response
+
+  # POST endpoint to send data to n8n
+  /webhook/ef73e23f-6464-4cdb-9153-885e466c1c56:
+    post:
+      operationId: triggerN8n
+      summary: Send data to n8n webhook
+      # Request body definition
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              # Required fields for request
+              required:
+                - title
+                - content
+                - category
+                - lang
+                - unique_hash
+                - tags
+              # Field definitions  
+              properties:
+                title:
+                  type: string # Post title
+                content:
+                  type: string # Post content (HTML/Markdown)
+                category:
+                  type: integer # WordPress category ID
+                date:
+                  type: string # Optional publish date
+                lang:
+                  type: string # Language code (e.g. "en", "de")
+                unique_hash:
+                  type: string # Used to prevent duplicates
+                tags:
+                  type: array # List of tag IDs
+                  items:
+                    type: integer
+      # Response definition
+      responses:
+        "200":
+          description: OK

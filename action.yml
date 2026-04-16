@@ -7,7 +7,7 @@ info:
   description: Combined API for publishing posts and fetching images
   version: "1.0"
 
-# Server where the API is hosted
+# Server where the API is hosted.
 servers:
   - url: https://n8n.ki-o.eu
 

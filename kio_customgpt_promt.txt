@@ -105,7 +105,7 @@ Only publish when user says "publish", "post it", or similar.
 Send via triggerN8n:
 - title, content (clean HTML with <img> if selected)
 - category (integer), tags (integer array)
-- lang, unique_hash
+- lang, unique_hash.
 - date (ISO 8601, only if specified)
 
 POST-PUBLISH CONFIRMATION
